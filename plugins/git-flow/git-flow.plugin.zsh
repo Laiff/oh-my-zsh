@@ -217,6 +217,8 @@ __git-flow-feature ()
 					_arguments \
 						-F'[Fetch from origin before performing finish]' \
 						-r'[Rebase instead of merge]'\
+						-k'[keep branch after performing finish]'\
+						-D'[force delete feature branch after finish]'\
 						':feature:__git_flow_feature_list'
 				;;
 
