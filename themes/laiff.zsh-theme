@@ -25,23 +25,28 @@ function box_name {
 }
 
 function battery_charge {
-  # Battery 0: Discharging, 94%, 03:46:34 remaining
-  bat_status=`acpi | awk -F ':' {'print $2;'} | awk -F ',' {'print $1;'}`
-  bat_percent=`acpi | awk -F ':' {'print $2;'} | awk -F ',' {'print $2;'} | sed -e "s/\s//" -e "s/%.*//"`
-  bat_remain=`acpi | cut -f3 -d ',' | awk -F ' ' {'print $1;'}`
+  if [[ $(acpi 2&>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
 
-  if [ $bat_percent -lt 20 ]; then cl='%{$FG[202]%}'
-  elif [ $bat_percent -lt 50 ]; then cl='%{$FG[226]%}'
-  else cl='%{$FG[040]%}'
+    # Battery 0: Discharging, 94%, 03:46:34 remaining
+    bat_status=`acpi | awk -F ':' {'print $2;'} | awk -F ',' {'print $1;'}`
+    bat_percent=`acpi | awk -F ':' {'print $2;'} | awk -F ',' {'print $2;'} | sed -e "s/\s//" -e "s/%.*//"`
+    bat_remain=`acpi | cut -f3 -d ',' | awk -F ' ' {'print $1;'}`
+
+    if [ $bat_percent -lt 20 ]; then cl='%{$FG[202]%}'
+    elif [ $bat_percent -lt 50 ]; then cl='%{$FG[226]%}'
+    else cl='%{$FG[040]%}'
+    fi
+
+    if [ "$bat_status" = " Discharging" ]; then remain=" [$bat_remain]"
+    else remain=''
+    fi
+
+    filled=${(l:`expr $bat_percent / 10`::▸:)}
+    empty=${(l:`expr 10 - $bat_percent / 10`::▹:)}
+    echo $cl$remain$filled$empty'%F{default}'
+  else
+	echo ''
   fi
-
-  if [ "$bat_status" = " Discharging" ]; then remain=" [$bat_remain]"
-  else remain=''
-  fi
-
-  filled=${(l:`expr $bat_percent / 10`::▸:)}
-  empty=${(l:`expr 10 - $bat_percent / 10`::▹:)}
-  echo $cl$remain$filled$empty'%F{default}'
 }
 
 local rvm_ruby=''
