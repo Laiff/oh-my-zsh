@@ -59,14 +59,29 @@ else
 fi
 local current_dir='${PWD/#$HOME/~}'
 local git_info='$(git_prompt_info)'
+local git_status='$(git_prompt_status)'
 
 
-PROMPT="%{$reset_color%}╭─%{$FG[040]%}%n%{$reset_color%} %{$FG[239]%}at%{$reset_color%} %{$FG[033]%}$(box_name)%{$reset_color%} %{$FG[239]%}in%{$reset_color%} %{$terminfo[bold]$FG[226]%}${current_dir}%{$reset_color%}${git_info} %{$FG[239]%}using%{$FG[243]%} ${rvm_ruby} 
+PROMPT="%{$reset_color%}╭─%{$FG[040]%}%n%{$reset_color%} %{$FG[239]%}at%{$reset_color%} %{$FG[033]%}$(box_name)%{$reset_color%} %{$FG[239]%}in%{$reset_color%} %{$terminfo[bold]$FG[226]%}${current_dir}%{$reset_color%}${git_info} %{$FG[239]%}[%{$reset_color%}${git_status}%{$FG[239]%}] %{$FG[239]%}using%{$FG[243]%} ${rvm_ruby} 
 %{$reset_color%}╰─$(virtualenv_info)$(prompt_char) "
 
 RPROMPT="%{$FG[239]%}[%*]%{$reset_color%} $(battery_charge)"
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$FG[239]%}on%{$reset_color%} %{$fg[255]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[202]%}✘✘✘"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$FG[202]%}✘"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$FG[040]%}✔"
+
+ZSH_THEME_GIT_PROMPT_NO_UNTRACKED=%{$FG[160]%}◇
+ZSH_THEME_GIT_PROMPT_NO_ADDED=%{$FG[040]%}◇
+ZSH_THEME_GIT_PROMPT_NO_MODIFIED=%{$FG[165]%}◇
+ZSH_THEME_GIT_PROMPT_NO_RENAMED=%{$FG[129]%}◇
+ZSH_THEME_GIT_PROMPT_NO_DELETED=%{$FG[196]%}◇
+ZSH_THEME_GIT_PROMPT_NO_UNMERGED=%{$FG[200]%}◇
+
+ZSH_THEME_GIT_PROMPT_UNTRACKED=%{$FG[160]%}◈
+ZSH_THEME_GIT_PROMPT_ADDED=%{$FG[040]%}◈
+ZSH_THEME_GIT_PROMPT_MODIFIED=%{$FG[165]%}◈
+ZSH_THEME_GIT_PROMPT_RENAMED=%{$FG[129]%}◈
+ZSH_THEME_GIT_PROMPT_DELETED=%{$FG[196]%}◈
+ZSH_THEME_GIT_PROMPT_UNMERGED=%{$FG[200]%}◈
