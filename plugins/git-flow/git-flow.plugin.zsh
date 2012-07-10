@@ -20,6 +20,16 @@
 #     c. Or, use this file as a oh-my-zsh plugin.
 #
 
+#Aliases
+alias gf='git flow'
+compdef _git gf=git flow
+alias gff='git flow feature'
+comdef _git gff=git flow feature
+alias gfr='git flow release'
+comdef _git gfr=git flow release
+alias gfh='git flow hotfix'
+comdef _git gfh=git flow hotfix
+#Main
 _git-flow ()
 {
 	local curcontext="$curcontext" state line
