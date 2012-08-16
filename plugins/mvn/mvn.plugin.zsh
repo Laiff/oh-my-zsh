@@ -25,3 +25,7 @@ mvn-color()
 }
 # Override the mvn command with the colorized one. \\\|FAILURE
 alias mvn="mvn-color"
+
+alias mci="mvn clean install"
+alias mi="mvn install"
+alias mce="mvn eclipse:clean eclipse:eclipse"
